@@ -1,0 +1,31 @@
+{
+  "name": "canvas-ex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "public/index.html",
+  "scripts": {
+    "start": "ember serve -lrp 35729",
+    "test": "ember test -s",
+    "build": "ember build",
+    "lint": "./node_modules/.bin/sass-lint",
+    "deploy": "ember build -e production && cp dist/index.html dist/200.html && surge dist my-app.surge.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "font-awesome": "^4.6.0",
+    "normalize-css": "^2.3.1",
+    "yoga-sass": "^1.0.1"
+  },
+  "devDependencies": {
+    "broccoli": "^0.16.9",
+    "broccoli-autoprefixer": "^4.1.0",
+    "broccoli-csso": "^2.0.0",
+    "broccoli-cli": "^1.0.0",
+    "broccoli-inject-livereload": "^0.2.0",
+    "broccoli-merge-trees": "^1.1.1",
+    "broccoli-sass": "^0.7.0",
+    "ember-cli": "^2.6.0",
+    "sass-lint": "^1.8.0"
+  }
+}
