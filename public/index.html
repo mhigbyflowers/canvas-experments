@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>slitscan</title>
+  <title>canvas-ex</title>
   <link rel="stylesheet" href="/app.css">
 
 </head>
@@ -22,17 +22,17 @@ var raf = window.requestAnimationFrame ||
 	window.mozRequestAnimationFrame ||
 	window.msRequestAnimationFrame ||
 	window.oRequestAnimationFrame;
-var theta = 0;
+var theta = 20;
 var direction = 0;
-var time = performance.now() / 100;
+var time = performance.now() / 10000;
 
 resize();
 tick();
 var translateX;
 var translateY;
-var translate0 = 0;
+var translate0 = -.5;
 var translate1 = 1;
-var rotate0 = 0;
+var rotate0 = .10;
 var rotate1 = 0;
 var scale0 = 1;
 var scale1 = .01  ;
@@ -65,25 +65,24 @@ function drawScene() {
 
 		ctx.globalCompositeOperation = "source-over";
 		ctx.translate(centerX, centerY);
-		ctx.rotate(0);
+		ctx.rotate(0.001);
 		ctx.translate(-centerX, -centerY);
 		ctx.translate(translate0,translate0);
-		ctx.scale(scale0, scale0);
+		ctx.scale(1.001, 1.001);
+    ctx.drawImage(cachedTexture,0,0);
 
     // ctx.transform(1,.1,0,1,0,0);
 
-		ctx.drawImage(cachedTexture,0,0);
-		ctx.restore();
+		// ctx.restore();
 
 
-		ctx.save();
+		// ctx.save();
 
  var img = new Image();
  img.src = 'http://i.imgur.com/z2cndRh.png';
-    ctx.drawImage(img,0, 0);
+		ctx.globalCompositeOperation = "normalize";
+    ctx.drawImage(img,translateX-150, translateY-150);
 
-		// ctx.globalCompositeOperation = "lighter";
-    // ctx.fillStyle = "rgba(255,0,255,1)";
     // ctx.fillRect(translateX, translateY, sizeX,sizeY );
     ctx.restore();
 	});
@@ -91,8 +90,9 @@ function drawScene() {
 	context.globalCompositeOperation = "source-out";
 	context.fillStyle = "rgba(255,255,255,1)";
 	context.fillRect(0, 0, width, height);
-	context.globalCompositeOperation = "soft-light";
+	context.globalCompositeOperation = "hard-light";
 	context.drawImage(cachedTexture,0,0);
+
 
 }
 
@@ -102,10 +102,10 @@ function tick() {
   var now = performance.now() / 100;
 	if (animating) {
     raf(tick);
-    theta += (now - time) * direction;
+    theta = (now / time) / direction;
     time = now;
-  } // else raf(tick);
-  drawScene();
+    drawScene();
+  } else raf(tick);
 }
 
 function resize(e) {
